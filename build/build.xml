@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SeleniumTrials" default="make" basedir="./../">
+    <description>
+        Ant build sample
+    </description>
+    <property name="src.dir" location="${basedir}/src" />
+    <property name="lib.dir" location="${basedir}/lib" />
+    <property name="bin.dir" location="${basedir}/bin" />
+    <property name="build.dir" location="${basedir}/build" />
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="*.jar" />
+    </path>
+
+    <!-- Cleans workspace -->
+    <target name="clean" description="Delete all result to start with a clean build.">
+        <delete dir="${bin.dir}" />
+        <delete file="${build.dir}/test.jar" failonerror="false"/>
+    </target>
+
+    <!-- Source Code compiler -->
+    <target name="compile" depends="clean" description="Compile the entire project.">
+        <mkdir dir="${bin.dir}" />
+        <javac srcdir="${src.dir}" destdir="${bin.dir}" debug="on" deprecation="on" failonerror="true" includeantruntime="true">
+            <classpath refid="classpath"/>
+        </javac>
+    </target>
+
+    <target name="make" depends="compile" description="Package into runnable jar file">
+        <copy todir="${bin.dir}">
+            <fileset dir="${src.dir}" excludes="**/*.java">
+            </fileset>
+        </copy>
+        <mkdir dir="${build.dir}" />
+        <jar destfile="${build.dir}/test.jar">
+            <fileset dir="${bin.dir}" />
+            <zipgroupfileset dir="${lib.dir}" includes="*.jar" /> 
+            <manifest>
+                <attribute name="Main-Class" value="scripts.Starter" />
+            </manifest>
+        </jar>
+    </target>
+</project>
