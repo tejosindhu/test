@@ -13,4 +13,4 @@ Usage:
 ## Maintainers
 
 - [Sudheer Veeravalli](https://github.com/veersudhir83)
-- [Sudheer Veeravalli](mailto:sudheer.veeravalli@quest-global.com)
+- [Sudheer Veeravalli](mailto:veersudhir83@gmail.com)
