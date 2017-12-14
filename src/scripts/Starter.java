@@ -17,6 +17,8 @@ public class Starter {
 	private static String machine = Constants.MACHINE_DEFAULT; 
 	private static String browser = Constants.BROWSER_DEFAULT; 
 	
+	private static String ipAddress = "";
+	
 	private static long sessionId;
 	
 	public static void main(String[] args) {
@@ -34,25 +36,33 @@ public class Starter {
 		methodNames.add("testDevopsWeb");
 		//methodNames.add("testGoogleSearch");
 
-		if(args.length == 0) {
-			machine = Constants.MACHINE_DEFAULT;
-			browser = Constants.BROWSER_DEFAULT;
-		} else if(args.length == 2) {
-			machine = args[0].toUpperCase();
-			browser = args[1].toUpperCase();
+		if(args.length >= 1 && args.length <= 3) {
+			if(args.length == 1) {
+				ipAddress = args[0].toUpperCase();
+				machine = Constants.MACHINE_DEFAULT;
+				browser = Constants.BROWSER_DEFAULT;
+			} else if(args.length == 3) {
+				ipAddress = args[0].toUpperCase();
+				machine = args[1].toUpperCase();
+				browser = args[2].toUpperCase();
+			} 
+			logger.info("==>>" + sessionId + "<<==" + "System=" + machine + "   Browser=" + browser);
+			Results resultsObjInstance = Results.getInstance(machine, browser);
+			start.runTests(methodNames, resultsObjInstance);
+			logger.info("==>>" + sessionId + "<<==" + "Finished Selenium Automated Testing" + "\n======================================");
+	
+			resultsObjInstance.publishResults();
+		} else {
+			logger.error("Invalid arguments:: Pass <IPAddress> <Machine> <Browser>");
+			System.exit(0);
 		}
-		logger.info("==>>" + sessionId + "<<==" + "System=" + machine + "   Browser=" + browser);
-		Results resultsObjInstance = Results.getInstance(machine, browser);
-		start.runTests(methodNames, resultsObjInstance);
-		logger.info("==>>" + sessionId + "<<==" + "Finished Selenium Automated Testing" + "\n======================================");
-
-		resultsObjInstance.publishResults();
 	}
 	
 	public void runTests(ArrayList<String> methodNames, Results resultsObjInstance) {
 		
 		try {
 			BasicTest test = new BasicTest();
+			test.setApplicationURL("http://" + ipAddress + ":9991/pages/index.html");
 			test.setResultsObjInstance(resultsObjInstance);
 			test.setSessionId(sessionId);
 			Method method;
