@@ -44,6 +44,8 @@ public class BasicTest {
 
 	Results resultsObjInstance = null;
 	
+	private String applicationURL = "";
+	
 	private TestUtils utils = new TestUtils();
 	
 	private static Logger logger = Logger.getLogger(BasicTest.class);
@@ -58,9 +60,7 @@ public class BasicTest {
 		String message = "FAIL";		
 		WebElement validElement = null;
 		ArrayList<String> appURLs = new ArrayList<String>();
-		String appUrl = "https://predix-static-app.run.aws-usw02-pr.ice.predix.io/";
-
-		appURLs.add(appUrl);
+		appURLs.add(applicationURL);
 
 		for(int i = 0; i < appURLs.size(); i++) {
 			StopWatch timer = new StopWatch();
@@ -373,4 +373,11 @@ public class BasicTest {
 		this.resultsObjInstance = instance;
 	}
 	
+	public String getApplicationURL() {
+		return applicationURL;
+	}
+
+	public void setApplicationURL(String applicationURL) {
+		this.applicationURL = applicationURL;
+	}	
 }
