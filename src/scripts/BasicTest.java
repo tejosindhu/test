@@ -70,10 +70,7 @@ public class BasicTest {
 
 				if(validElement != null) {
 					if(validElement.getText().equals("Hello !! Welcome To DevOps !!")) {
-						validElement = verifyElementEnabled(Constants.ELEMENT_XPATH_STRING, "/html/body/footer/div/p/a");
-						if(validElement.getText().equals("Sudheer Veeravalli")) {
-                            message = "PASS";
-						}
+                        message = "PASS";
 					}
 				}	
 				logger.info("==>>" + sessionId + "<<==" + "Finished testDevopsWeb(" + appURLs.get(i) 
