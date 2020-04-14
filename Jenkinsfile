@@ -15,7 +15,7 @@ pipeline {
       stage('Build') {
          steps {
             echo 'In Build stage'
-            sh label: '', script: 'ant --version && cd ${WORKSPACE}/build/ && ant'
+            sh label: '', script: 'cd ${WORKSPACE}/build/ && ant'
          }
       }      
    }
